@@ -5,14 +5,14 @@ log = logging.getLogger(__name__)
 
 class BasePluginComponent(object):
 
-    factories = {}
-    services = {}
+    factories = ()
+    services = ()
 
     def get_factories(self):
-        return self.factories.items()
+        return self.factories
 
     def get_services(self):
-        return self.services.items()
+        return self.services
 
     def pre_hook(self, container):
         return
