@@ -51,14 +51,14 @@ Add kore to your package requirements:
 
    $ echo "kore" >> requirements.txt
 
-Create your own application plugin (see `Creating plugins`_) or use existing ones:
+Create your own application plugin (see `Creating component plugins`_) or use existing ones:
 
 - kore-plugins-celery for `Celery`_ application
 - kore-plugins-falcon for `Falcon`_ application
 
 
 Creating component plugins
-================
+==========================
 
 Create your plugin module:
 
@@ -111,7 +111,7 @@ Create ``get_services`` method that returns two-element iterable with first elem
 
 
 Creating plugin hooks
------------------------------
+---------------------
 
 A component hook is one time components usage. Inside hooks you can connect them together or configure.
 
