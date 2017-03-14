@@ -4,6 +4,22 @@ kore
 Kore - core app framework
 
 
+Installation
+============
+
+Recommended way (via pip):
+
+.. code-block:: bash
+
+   $ pip install kore
+
+Alternatively you can download the code and install from the repository:
+
+.. code-block:: bash
+
+   $ pip install -e git+https://github.com/p1c2u/kore.git#egg=kore
+
+
 Testing
 =======
 
