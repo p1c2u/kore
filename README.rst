@@ -93,6 +93,8 @@ Create ``get_services`` method that returns two-element iterable with first elem
 
 .. code-block:: python
 
+   class MyOwnPlugin(BasePluginComponent):
+
        def get_factories(self):
            return (
                ('my_own_component_1', self.my_own_component_1),
