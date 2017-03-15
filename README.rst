@@ -1,6 +1,18 @@
 kore
 ****
 
+.. role:: strike
+    :class: strike
+
+.. image:: https://badge.fury.io/py/kore.png
+    :target: http://badge.fury.io/py/kore
+
+.. image:: https://travis-ci.org/p1c2u/kore.svg?branch=master
+    :target: https://travis-ci.org/p1c2u/kore
+
+.. image:: https://img.shields.io/codecov/c/github/p1c2u/kore/master.svg?style=flat
+    :target: https://codecov.io/github/p1c2u/kore?branch=master
+
 Kore - core app framework
 
 
