@@ -1,9 +1,6 @@
-from kore import container_factory
-
-
 class TestContainerFactory(object):
 
-    def test_initial_components(self):
+    def test_initial_components(self, container_factory):
         components = {
             'foo': 'bar',
             'bar': 'baz',

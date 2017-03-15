@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from kore.configs.factories import ConfigFactory
+from kore.components.factories import ComponentFactory
 from kore.components.registrars import (
     FactoryRegistrar,
     ServiceRegistrar,
@@ -26,5 +27,6 @@ service_registrar = ServiceRegistrar()
 component_registrar = ComponentRegistrar(factory_registrar, service_registrar)
 
 config_factory = ConfigFactory(config_plugins_provider)
+component_factory = ComponentFactory()
 container_factory = ContainerFactory(
-    component_plugins_provider, component_registrar)
+    component_plugins_provider, component_factory, component_registrar)

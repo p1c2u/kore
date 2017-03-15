@@ -7,8 +7,10 @@ log = logging.getLogger(__name__)
 
 class ContainerFactory(object):
 
-    def __init__(self, components_provider, component_registrar):
+    def __init__(
+            self, components_provider, component_factory, component_registrar):
         self.components_provider = components_provider
+        self.component_factory = component_factory
         self.component_registrar = component_registrar
 
     def create(self, **components):
@@ -23,4 +25,4 @@ class ContainerFactory(object):
 
     def create_component(self, component_class):
         log.debug("Creating `%s` plugin", component_class.__name__)
-        return component_class()
+        return self.component_factory.create(component_class)
