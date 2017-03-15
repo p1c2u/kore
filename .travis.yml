@@ -1,0 +1,27 @@
+language: python
+sudo: false
+matrix:
+  include:
+    - python: 2.6
+    - python: 2.7
+    - python: 3.2
+    - python: 3.3
+    - python: 3.4
+    - python: 3.6
+    - python: "nightly"
+    - python: "pypy"
+    - python: "pypy3"
+  allow_failures:
+    - python: 3.2
+    - python: 3.3
+    - python: "nightly"
+before_install:
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.2' ]]; then pip install 'coverage<4.0.0'; fi
+  - pip install codecov
+install:
+  - pip install -e .
+  - pip install -r requirements_dev.txt
+script:
+  - python setup.py test
+after_success:
+  - codecov
