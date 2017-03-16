@@ -79,3 +79,8 @@ def container_factory(
         component_plugins_provider, component_factory, component_registrar):
     return ContainerFactory(
         component_plugins_provider, component_factory, component_registrar)
+
+
+@pytest.fixture
+def container(container_factory, dict_config):
+    return container_factory.create(config=dict_config)
