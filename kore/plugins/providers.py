@@ -16,6 +16,13 @@ class PluginsProvider(object):
     def all(self):
         return self.plugins.items()
 
+    def filter(self, *whitelist):
+        filtered = {}
+        for name, plugin in self.plugins.items():
+            if name in whitelist:
+                filtered[name] = plugin
+        return filtered.items()
+
     @property
     def plugins(self):
         if self._plugins_cache is None:

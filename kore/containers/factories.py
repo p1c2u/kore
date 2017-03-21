@@ -13,15 +13,30 @@ class ContainerFactory(object):
         self.component_factory = component_factory
         self.component_registrar = component_registrar
 
-    def create(self, **components):
+    def create(self, config, **initial):
         log.debug("Creating container")
-        container = Container(components)
+        kore_config = config.get('kore', {})
 
-        for namespace, component_class in self.components_provider.all():
+        container = Container(initial)
+        container.update({
+            'config': config,
+            'kore.config': kore_config,
+        })
+
+        components_dict = self.provide_components(kore_config)
+        for namespace, component_class in components_dict:
             component = self.create_component(component_class)
             self.component_registrar.register(container, component, namespace)
 
         return container
+
+    def provide_components(self, kore_config):
+        components_whitelist = kore_config.get('plugins', [])
+
+        if not components_whitelist:
+            return self.components_provider.all()
+
+        return self.components_provider.filter(*components_whitelist)
 
     def create_component(self, component_class):
         log.debug("Creating `%s` plugin", component_class.__name__)
