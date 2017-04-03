@@ -38,6 +38,7 @@ class ComponentRegistrar(object):
     def __init__(self, factory_registrar, service_registrar):
         self.factory_registrar = factory_registrar
         self.service_registrar = service_registrar
+        self.components = []
 
     def register(self, container, component, namespace):
         log.debug("Registering `%s`", namespace)
@@ -46,4 +47,8 @@ class ComponentRegistrar(object):
         self.factory_registrar.register(container, factories, namespace)
         services = component.get_services()
         self.service_registrar.register(container, services, namespace)
-        component.post_hook(container)
+        self.components.append(component)
+
+    def bind(self, container):
+        for component in self.components:
+            component.post_hook(container)

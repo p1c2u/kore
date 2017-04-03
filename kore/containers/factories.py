@@ -21,6 +21,8 @@ class ContainerFactory(object):
             component = self.create_component(component_class)
             self.component_registrar.register(container, component, namespace)
 
+        self.component_registrar.bind(container)
+
         return container
 
     def create_component(self, component_class):
