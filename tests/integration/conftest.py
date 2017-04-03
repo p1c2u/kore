@@ -27,35 +27,62 @@ def dict_config(config_dict):
 
 
 @pytest.fixture
-def factory_component():
-    return lambda self: datetime.utcnow()
+def factory_component_1():
+    return lambda container: container('test.factory_2')
 
 
 @pytest.fixture
-def service_component():
-    return lambda self: datetime.utcnow()
+def factory_component_2():
+    return lambda container: datetime.utcnow()
 
 
 @pytest.fixture
-def component_plugin_class(factory_component, service_component):
+def service_component_1():
+    return lambda container: container('test.service_2')
+
+
+@pytest.fixture
+def service_component_2():
+    return lambda container: datetime.utcnow()
+
+
+@pytest.fixture
+def component_plugin_class(
+        factory_component_1, factory_component_2, service_component_1,
+        service_component_2):
     return type(
         "TestPluginComponent",
         (BasePluginComponent, ),
         {
-            "get_factories": lambda self: (("factory", factory_component),),
-            "get_services": lambda self: (("service", service_component),),
+            "get_factories":
+                lambda self: (
+                    ("factory_1", factory_component_1),
+                    ("factory_2", factory_component_2),
+                ),
+            "get_services":
+                lambda self: (
+                    ("service_1", service_component_1),
+                    ("service_2", service_component_2),
+                ),
+            "post_hook":
+                lambda self, container: container('test.service_1'),
         }
     )
 
 
 @pytest.fixture
-def component_plugin(component_plugin_class):
+def component_plugin_1(component_plugin_class):
     return Plugin('test', component_plugin_class)
 
 
 @pytest.fixture
-def component_plugins_iterator(component_plugin):
-    return (component_plugin, )
+def component_plugin_2(component_plugin_class):
+    return Plugin('test_2', component_plugin_class)
+
+
+@pytest.fixture
+def component_plugins_iterator(component_plugin_1, component_plugin_2):
+    return (component_plugin_1, component_plugin_2)
 
 
 @pytest.fixture
