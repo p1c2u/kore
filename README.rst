@@ -13,7 +13,7 @@ kore
 .. image:: https://img.shields.io/codecov/c/github/p1c2u/kore/master.svg?style=flat
     :target: https://codecov.io/github/p1c2u/kore?branch=master
 
-Kore - core app framework
+Kore is a modular core application framework. Designed for rapid application creation. Combine your own application from existing reusable plugins or easy create new ones.
 
 
 Installation
@@ -63,10 +63,39 @@ Add kore to your package requirements:
 
    $ echo "kore" >> requirements.txt
 
-Create your own application plugin (see `Creating component plugins`_) or use existing ones:
+Use existing plugins (see `Using plugins`_)
+Create your own application plugin (see `Creating component plugins`_) or use existing ones (see `Using plugins`_)
 
-- kore-plugins-celery for `Celery`_ application
-- kore-plugins-falcon for `Falcon`_ application
+
+Plugin types
+============
+
+There are two types of plugins:
+
+* config plugins - allow you read application cnfiguration from different source types (i.e. INI file, Zookeeper host)
+* component plugins - add components to your application (i.e. Flask app, Elasticsearch client)
+
+See `Existing plugins`_
+
+
+Enabling plugins
+================
+
+Kore has many plugins that can help you to fast create your own application.
+
+Existing config plugins:
+
+- `kore-plugins-ini`_ for INI file configuration
+
+Existing component plugins:
+
+- `kore-plugins-celery`_ for `Celery`_ application
+- `kore-plugins-flask`_ for `Flask`_ application
+- `kore-plugins-sanic`_ for `Sanic`_ application
+
+See `Plugin types`_ for more information.
+
+To enable specific plugin you just need to install that plugin. That's it!
 
 
 Creating component plugins
@@ -151,12 +180,9 @@ Create ``post_hook`` method inside plugin class:
 
            application.add_signal('launched', my_own_component_1)
 
-.. _Celery: http://www.celeryproject.org/
-.. _Falcon: https://falconframework.org/
 
-
-Enabling plugin
-===============
+Registering plugin
+==================
 
 Every plugin should have entry point(s) in `setup.py` to be enabled.
 
@@ -174,3 +200,12 @@ Every plugin should have entry point(s) in `setup.py` to be enabled.
     )
 
 Entry point name is plugin namespace. Every component inside the plugin will be registered under that namespace.
+
+.. _kore-plugins-ini: https://github.com/kore-plugins/kore-plugins-ini/
+.. _kore-plugins-celery: https://github.com/kore-plugins/kore-plugins-celery/
+.. _kore-plugins-flask: https://github.com/kore-plugins/kore-plugins-flask/
+.. _kore-plugins-sanic: https://github.com/kore-plugins/kore-plugins-sanic/
+.. _Celery: http://www.celeryproject.org/
+.. _Falcon: https://falconframework.org/
+.. _Flask: http://flask.pocoo.org/
+.. _Sanic: https://github.com/channelcat/sanic/
