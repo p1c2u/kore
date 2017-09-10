@@ -16,9 +16,3 @@ class BasePluginComponent(object):
 
     def get_services(self):
         return self.services
-
-    def pre_hook(self, container):
-        return
-
-    def post_hook(self, container):
-        return

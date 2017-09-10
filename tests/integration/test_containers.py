@@ -1,5 +1,16 @@
 import mock
 
+from kore.containers import signals
+
+
+class Receiver(object):
+
+    def __init__(self):
+        self.container = None
+
+    def __call__(self, sender, container):
+        self.container = container
+
 
 class TestContainersProvide(object):
 
@@ -31,3 +42,15 @@ class TestContainersAddService(object):
             lambda x: mock.sentinel.service, 'service_3', namespace='test_3')
 
         assert container('test_3.service_3') == mock.sentinel.service
+
+
+class TestCContainerSignals(object):
+
+    def test_container_prepared(
+            self, component_plugin_class, container_factory):
+        receiver = Receiver()
+
+        signals.container_prepared.connect(receiver)
+
+        container = container_factory.create()
+        assert receiver.container == container

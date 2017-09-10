@@ -1,4 +1,7 @@
 import logging
+import warnings
+
+from kore.components import signals
 
 log = logging.getLogger(__name__)
 
@@ -10,7 +13,17 @@ class ComponentRegistrar(object):
 
     def register(self, container, component):
         log.debug("Registering `%s`", component.namespace)
-        component.pre_hook(container)
+
+        if hasattr(component, 'pre_hook'):
+            warnings.warn(
+                "pre_hook method is deprecated. "
+                "Use pre_register signal instead.",
+                DeprecationWarning,
+            )
+            component.pre_hook(container)
+        signals.pre_register.send(
+            component.__class__, instance=component, container=container)
+
         factories = component.get_factories()
         for name, factory in factories:
             container.add_factory(factory, name, component.namespace)
@@ -19,6 +32,15 @@ class ComponentRegistrar(object):
             container.add_service(service, name, component.namespace)
         self.components.append(component)
 
+        signals.post_register.send(
+            component.__class__, instance=component, container=container)
+
     def bind(self, container):
         for component in self.components:
-            component.post_hook(container)
+            if hasattr(component, 'post_hook'):
+                warnings.warn(
+                    "post_hook method is deprecated. "
+                    "Use container_prepared signal instead.",
+                    DeprecationWarning,
+                )
+                component.post_hook(container)
