@@ -64,6 +64,8 @@ def component_plugin_class(
                     ("service_1", service_component_1),
                     ("service_2", service_component_2),
                 ),
+            "pre_hook":
+                lambda self, container: container,
             "post_hook":
                 lambda self, container: container('test.service_1'),
         }

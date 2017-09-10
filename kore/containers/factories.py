@@ -1,6 +1,7 @@
 import logging
 
 from kore.containers.models import NamespacedContainer
+from kore.containers import signals
 
 log = logging.getLogger(__name__)
 
@@ -21,7 +22,10 @@ class ContainerFactory(object):
             component = self.create_component(component_class, namespace)
             self.component_registrar.register(container, component)
 
+        # @deprecated: remove with pre_hook and post_hook
         self.component_registrar.bind(container)
+
+        signals.container_prepared.send(container=container)
 
         return container
 
