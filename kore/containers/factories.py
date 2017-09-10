@@ -18,13 +18,13 @@ class ContainerFactory(object):
         container = Container(components)
 
         for namespace, component_class in self.components_provider.all():
-            component = self.create_component(component_class)
-            self.component_registrar.register(container, component, namespace)
+            component = self.create_component(component_class, namespace)
+            self.component_registrar.register(container, component)
 
         self.component_registrar.bind(container)
 
         return container
 
-    def create_component(self, component_class):
+    def create_component(self, component_class, namespace):
         log.debug("Creating `%s` plugin", component_class.__name__)
-        return self.component_factory.create(component_class)
+        return self.component_factory.create(component_class, namespace)
