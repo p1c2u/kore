@@ -63,8 +63,8 @@ Add kore to your package requirements:
 
    $ echo "kore" >> requirements.txt
 
-Use existing plugins (see `Using plugins`_)
-Create your own application plugin (see `Creating component plugins`_) or use existing ones (see `Using plugins`_)
+Use existing plugins (see `Enabling plugins`_)
+Create your own application plugin (see `Creating component plugins`_) or use existing ones (see `Enabling plugins`_)
 
 
 Plugin types
@@ -75,7 +75,7 @@ There are two types of plugins:
 * config plugins - allow you read application cnfiguration from different source types (i.e. INI file, Zookeeper host)
 * component plugins - add components to your application (i.e. Flask app, Elasticsearch client)
 
-See `Existing plugins`_
+See `Enabling plugins`_
 
 
 Enabling plugins
