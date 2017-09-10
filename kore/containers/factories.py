@@ -1,6 +1,6 @@
 import logging
 
-from knot import Container
+from kore.containers.models import NamespacedContainer
 
 log = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class ContainerFactory(object):
 
     def create(self, **components):
         log.debug("Creating container")
-        container = Container(components)
+        container = NamespacedContainer(components)
 
         for namespace, component_class in self.components_provider.all():
             component = self.create_component(component_class)
