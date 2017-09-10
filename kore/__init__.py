@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 from kore.configs.factories import ConfigFactory
 from kore.components.factories import ComponentFactory
-from kore.components.registrars import (
-    FactoryRegistrar,
-    ServiceRegistrar,
-    ComponentRegistrar,
-)
+from kore.components.registrars import ComponentRegistrar
 from kore.containers.factories import ContainerFactory
 from kore.plugins.iterators import PluginIterator
 from kore.plugins.providers import PluginsProvider
@@ -22,9 +18,7 @@ components_iterator = PluginIterator('kore.components')
 config_plugins_provider = PluginsProvider(configs_iterator)
 component_plugins_provider = PluginsProvider(components_iterator)
 
-factory_registrar = FactoryRegistrar()
-service_registrar = ServiceRegistrar()
-component_registrar = ComponentRegistrar(factory_registrar, service_registrar)
+component_registrar = ComponentRegistrar()
 
 config_factory = ConfigFactory(config_plugins_provider)
 component_factory = ComponentFactory()

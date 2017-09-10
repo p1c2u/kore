@@ -20,3 +20,13 @@ class NamespacedContainer(Container):
             return name
 
         return self.namespace_separator.join([namespace, name])
+
+    def add_factory(self, provider, name, namespace=None):
+        provider_name = self.get_provider_name(name, namespace=namespace)
+        return super(NamespacedContainer, self).add_factory(
+            provider, provider_name)
+
+    def add_service(self, provider, name, namespace=None):
+        provider_name = self.get_provider_name(name, namespace=namespace)
+        return super(NamespacedContainer, self).add_service(
+            provider, provider_name)

@@ -1,6 +1,6 @@
 import pytest
 
-from knot import Container
+from kore.containers.models import NamespacedContainer
 
 
 class TestComponentRegistrarBind(object):
@@ -17,7 +17,7 @@ class TestComponentRegistrarBind(object):
 
     @pytest.fixture
     def container(self):
-        return Container()
+        return NamespacedContainer()
 
     def test_registered_single(
             self, component_registrar, container, component_1):
