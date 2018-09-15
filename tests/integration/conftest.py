@@ -2,7 +2,6 @@ from datetime import datetime
 
 import pytest
 
-from kore.configs.base import BaseConfig
 from kore.testing.factories import Factory
 
 

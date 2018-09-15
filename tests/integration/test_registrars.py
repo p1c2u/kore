@@ -1,7 +1,5 @@
 import pytest
 
-from kore.containers.models import NamespacedContainer
-
 
 class TestComponentRegistrarBind(object):
 

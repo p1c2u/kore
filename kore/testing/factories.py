@@ -45,7 +45,7 @@ class Factory(dict):
 
         attributes = {
             "get_factories": lambda self: tuple(iteritems(factories)),
-            "get_services":lambda self: tuple(iteritems(services)),
+            "get_services": lambda self: tuple(iteritems(services)),
         }
 
         if pre_hook is not None:
@@ -78,7 +78,7 @@ class Factory(dict):
 
     def create_container_factory(
             self, plugins_provider=None, component_factory=None,
-            component_registrar= None, plugins_iterator=None,
+            component_registrar=None, plugins_iterator=None,
     ):
         if plugins_provider is None:
             plugins_provider = self.create_plugins_provider(
@@ -96,7 +96,7 @@ class Factory(dict):
     def create_container(
             self, container_factory=None, config=None,
             plugins_provider=None, component_factory=None,
-            component_registrar= None, plugins_iterator=None,
+            component_registrar=None, plugins_iterator=None,
             config_dict=None,
     ):
         if container_factory is None:
