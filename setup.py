@@ -53,7 +53,8 @@ metadata = get_metadata(init_py)
 
 entry_points = """\
 [kore.configs]
-dict = kore.configs.plugins.dict:DictConfig
+dict = kore.configs.dict:DictConfig
+env = kore.configs.env:EnvConfig
 """
 
 

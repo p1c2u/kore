@@ -40,7 +40,7 @@ class ComponentRegistrar(object):
             if hasattr(component, 'post_hook'):
                 warnings.warn(
                     "post_hook method is deprecated. "
-                    "Use container_prepared signal instead.",
+                    "Use post_register signal instead.",
                     DeprecationWarning,
                 )
                 component.post_hook(container)

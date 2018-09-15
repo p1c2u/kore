@@ -4,8 +4,8 @@ import pytest
 
 from kore.components.factories import ComponentFactory
 from kore.components.plugins.base import BasePluginComponent
-from kore.configs.models import BaseConfig
-from kore.configs.plugins.dict import DictConfig
+from kore.configs.base import BaseConfig
+from kore.configs.dict import DictConfig
 from kore.containers.factories import ContainerFactory
 from kore.plugins.models import Plugin
 from kore.plugins.providers import PluginsProvider
