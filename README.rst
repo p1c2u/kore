@@ -13,7 +13,7 @@ kore
 .. image:: https://img.shields.io/codecov/c/github/p1c2u/kore/master.svg?style=flat
     :target: https://codecov.io/github/p1c2u/kore?branch=master
 
-Kore is a modular core application framework. Designed for rapid application creation. Combine your own application from existing reusable plugins or easy create new ones.
+Kore is a modular Python application framework. Designed for rapid application creation. Combine your own application from existing reusable plugins or easy create new ones.
 
 
 Installation
