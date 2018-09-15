@@ -1,3 +1,5 @@
+import pytest
+
 from kore.components import signals
 
 
@@ -14,7 +16,23 @@ class Receiver(object):
         self.container = container
 
 
-class TestComponents(object):
+class BaseTestComponents(object):
+
+    @pytest.fixture(scope='session')
+    def config_dict(self):
+        return {'test': 'test'}
+
+    @pytest.fixture(scope='session')
+    def dict_config(self, config_dict, factory):
+        return factory.create_dict_config(config_dict=config_dict)
+
+
+class TestComponents(BaseTestComponents):
+
+    @pytest.fixture
+    def container(self, plugin_1, plugin_2, config_dict, factory):
+        return factory.create_container(
+            plugins_iterator=[plugin_1, plugin_2], config_dict=config_dict)
 
     def test_services(self, container):
         assert container('test.service_1') == container('test.service_1')
@@ -29,24 +47,29 @@ class TestComponents(object):
         assert not container('test.factory_1') == container('test.factory_2')
 
 
-class TestComponentSignals(object):
+class TestComponentSignals(BaseTestComponents):
 
-    def test_pre_register(self, component_plugin_class, container_factory):
+    @pytest.fixture
+    def container_factory(self, plugin_1, plugin_2, factory):
+        return factory.create_container_factory(
+            plugins_iterator=[plugin_1, plugin_2])
+
+    def test_pre_register(self, component_class, container_factory):
         receiver = Receiver()
 
-        signals.pre_register.connect(receiver, sender=component_plugin_class)
+        signals.pre_register.connect(receiver, sender=component_class)
 
         container = container_factory.create()
         assert receiver.instance is True
-        assert receiver.sender == component_plugin_class
+        assert receiver.sender == component_class
         assert receiver.container == container
 
-    def test_post_register(self, component_plugin_class, container_factory):
+    def test_post_register(self, component_class, container_factory):
         receiver = Receiver()
 
-        signals.post_register.connect(receiver, sender=component_plugin_class)
+        signals.post_register.connect(receiver, sender=component_class)
 
         container = container_factory.create()
         assert receiver.instance is True
-        assert receiver.sender == component_plugin_class
+        assert receiver.sender == component_class
         assert receiver.container == container

@@ -1,7 +1,13 @@
 import pytest
 
+from kore.configs.base import BaseConfig
+
 
 class TestBaseConfigGet(object):
+
+    @pytest.fixture(scope='session')
+    def base_config(self):
+        return BaseConfig()
 
     def test_missing(self, base_config):
         key = 'missing'

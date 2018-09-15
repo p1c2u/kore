@@ -1,4 +1,5 @@
 import mock
+import pytest
 
 from kore.containers import signals
 
@@ -14,6 +15,11 @@ class Receiver(object):
 
 class TestContainersProvide(object):
 
+    @pytest.fixture
+    def container(self, plugin_1, plugin_2, factory):
+        return factory.create_container(
+            plugins_iterator=[plugin_1, plugin_2])
+
     def test_namespace(self, container):
         assert container('test.service_1') ==\
             container('service_1', namespace='test')
@@ -28,6 +34,10 @@ class TestContainersProvide(object):
 
 class TestContainersAddFactory(object):
 
+    @pytest.fixture
+    def container(self, factory):
+        return factory.create_container()
+
     def test_namespace(self, container):
         container.add_factory(
             lambda x: mock.sentinel.factory, 'service_3', namespace='test_3')
@@ -36,6 +46,10 @@ class TestContainersAddFactory(object):
 
 
 class TestContainersAddService(object):
+
+    @pytest.fixture
+    def container(self, factory):
+        return factory.create_container()
 
     def test_namespace(self, container):
         container.add_service(
@@ -46,8 +60,11 @@ class TestContainersAddService(object):
 
 class TestCContainerSignals(object):
 
-    def test_container_prepared(
-            self, component_plugin_class, container_factory):
+    @pytest.fixture
+    def container_factory(self, factory):
+        return factory.create_container_factory()
+
+    def test_container_prepared(self, component_class, container_factory):
         receiver = Receiver()
 
         signals.container_prepared.connect(receiver)

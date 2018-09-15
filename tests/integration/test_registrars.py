@@ -6,18 +6,20 @@ from kore.containers.models import NamespacedContainer
 class TestComponentRegistrarBind(object):
 
     @pytest.fixture
-    def component_1(self, component_factory, component_plugin_1):
-        return component_factory.create(
-            component_plugin_1.plugin, component_plugin_1.name)
+    def component_registrar(self, factory):
+        return factory.create_component_registrar()
 
     @pytest.fixture
-    def component_2(self, component_factory, component_plugin_2):
-        return component_factory.create(
-            component_plugin_2.plugin, component_plugin_2.name)
+    def component_1(self, plugin_1, factory):
+        return factory.create_component(component_plugin=plugin_1)
 
     @pytest.fixture
-    def container(self):
-        return NamespacedContainer()
+    def component_2(self, plugin_2, factory):
+        return factory.create_component(component_plugin=plugin_2)
+
+    @pytest.fixture
+    def container(self, factory):
+        return factory.create_container()
 
     def test_registered_single(
             self, component_registrar, container, component_1):

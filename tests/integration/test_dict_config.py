@@ -1,4 +1,18 @@
-class TestDictConfigGet(object):
+import pytest
+
+
+class BaseTestDictConfig(object):
+
+    @pytest.fixture(scope='session')
+    def config_dict(self):
+        return {'test': 'test'}
+
+    @pytest.fixture(scope='session')
+    def dict_config(self, config_dict, factory):
+        return factory.create_dict_config(config_dict=config_dict)
+
+
+class TestDictConfigGet(BaseTestDictConfig):
 
     def test_missing(self, dict_config):
         key = 'missing'
@@ -23,7 +37,7 @@ class TestDictConfigGet(object):
         assert result == config_dict[key]
 
 
-class TestDictConfigGetItem(object):
+class TestDictConfigGetItem(BaseTestDictConfig):
 
     def test_missing(self, dict_config):
         key = 'missing'
