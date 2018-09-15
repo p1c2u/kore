@@ -1,18 +1,4 @@
-import logging
+# backward compatibility
+from kore.components.base import BaseComponent as BasePluginComponent
 
-log = logging.getLogger(__name__)
-
-
-class BasePluginComponent(object):
-
-    factories = ()
-    services = ()
-
-    def __init__(self, namespace=None):
-        self.namespace = namespace
-
-    def get_factories(self):
-        return self.factories
-
-    def get_services(self):
-        return self.services
+__all__ = ['BasePluginComponent', ]

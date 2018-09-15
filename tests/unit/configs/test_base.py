@@ -1,7 +1,7 @@
 import mock
 import pytest
 
-from kore.configs.models import BaseConfig
+from kore.configs.base import BaseConfig
 
 
 class TestBaseConfigGet(object):
