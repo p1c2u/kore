@@ -111,11 +111,11 @@ class Factory(dict):
 
         return container_factory.create(config=config)
 
-    def create_plugin(self, name="TestPlugin", component_class=None):
+    def create_plugin(self, namespace="TestPlugin", component_class=None):
         if component_class is None:
             component_class = self.create_component_class()
 
-        return Plugin(name, component_class)
+        return Plugin(namespace, component_class)
 
     def create_plugins_provider(self, plugins_iterator=None):
         if plugins_iterator is None:
