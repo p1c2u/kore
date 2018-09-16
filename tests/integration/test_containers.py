@@ -16,20 +16,23 @@ class Receiver(object):
 class TestContainersProvide(object):
 
     @pytest.fixture
-    def container(self, plugin_1, plugin_2, factory):
-        return factory.create_container(
-            plugins_iterator=[plugin_1, plugin_2])
+    def service(self):
+        return lambda container: container
 
-    def test_namespace(self, container):
-        assert container('test.service_1') ==\
-            container('service_1', namespace='test')
-        assert container('test.service_2') ==\
-            container('service_2', namespace='test')
+    def test_namespace(self, service, factory):
+        service_name = 'service'
+        component_class = factory.create_component_class(
+            name="TestComponent",
+            services={service_name: service},
+        )
+        plugin_namespace = 'test'
+        plugin = factory.create_plugin(
+            name=plugin_namespace, component_class=component_class)
+        container = factory.create_container(
+            plugins_iterator=[plugin, ])
 
-        assert container('test_2.service_1') ==\
-            container('service_1', namespace='test_2')
-        assert container('test_2.service_2') ==\
-            container('service_2', namespace='test_2')
+        assert container('test.service') ==\
+            container(service_name, namespace=plugin_namespace)
 
 
 class TestContainersAddFactory(object):
@@ -64,7 +67,7 @@ class TestCContainerSignals(object):
     def container_factory(self, factory):
         return factory.create_container_factory()
 
-    def test_container_prepared(self, component_class, container_factory):
+    def test_container_prepared(self, container_factory):
         receiver = Receiver()
 
         signals.container_prepared.connect(receiver)
