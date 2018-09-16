@@ -64,15 +64,16 @@ class Factory(dict):
 
     def create_component(
             self, component_factory=None, plugin=None,
-            plugin_name=None, plugin_class=None,
+            plugin_namespace=None, plugin_class=None,
     ):
         if component_factory is None:
             component_factory = self.create_component_factory()
 
         if plugin is None:
-            plugin = self.create_plugin(plugin_name, plugin_class)
+            plugin = self.create_plugin(plugin_namespace, plugin_class)
 
-        return component_factory.create(plugin.component_class, plugin.name)
+        return component_factory.create(
+            plugin.component_class, plugin.namespace)
 
     def create_container_factory(
             self, plugins_provider=None, component_factory=None,
