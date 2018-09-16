@@ -27,7 +27,7 @@ class TestContainersProvide(object):
         )
         plugin_namespace = 'test'
         plugin = factory.create_plugin(
-            name=plugin_namespace, component_class=component_class)
+            namespace=plugin_namespace, component_class=component_class)
         container = factory.create_container(
             plugins_iterator=[plugin, ])
 
@@ -61,13 +61,13 @@ class TestContainersAddService(object):
         assert container('test_3.service_3') == mock.sentinel.service
 
 
-class TestCContainerSignals(object):
+class TestCContainerPrepared(object):
 
     @pytest.fixture
     def container_factory(self, factory):
         return factory.create_container_factory()
 
-    def test_container_prepared(self, container_factory):
+    def test_received(self, container_factory):
         receiver = Receiver()
 
         signals.container_prepared.connect(receiver)

@@ -48,12 +48,12 @@ class TestComponents(object):
     @pytest.fixture
     def plugin_1(self, component_class, factory):
         return factory.create_plugin(
-            name='test', component_class=component_class)
+            namespace='test', component_class=component_class)
 
     @pytest.fixture
     def plugin_2(self, component_class, factory):
         return factory.create_plugin(
-            name='test_2', component_class=component_class)
+            namespace='test_2', component_class=component_class)
 
     @pytest.fixture(scope='session')
     def config_dict(self):
@@ -91,7 +91,7 @@ class TestComponentPreRegister(object):
     @pytest.fixture
     def plugin(self, component_class, factory):
         return factory.create_plugin(
-            name='test', component_class=component_class)
+            namespace='test', component_class=component_class)
 
     @pytest.fixture
     def container_factory(self, plugin, factory):
@@ -122,7 +122,7 @@ class TestComponentPostRegister(object):
     @pytest.fixture
     def plugin(self, component_class, factory):
         return factory.create_plugin(
-            name='test', component_class=component_class)
+            namespace='test', component_class=component_class)
 
     @pytest.fixture
     def container_factory(self, plugin, factory):
