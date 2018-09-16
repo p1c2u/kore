@@ -36,11 +36,12 @@ class ComponentRegistrar(object):
             component.__class__, instance=component, container=container)
 
     def bind(self, container):
+        # @todo: implement order with dependencies resolving
         for component in self.components:
             if hasattr(component, 'post_hook'):
                 warnings.warn(
                     "post_hook method is deprecated. "
-                    "Use post_register signal instead.",
+                    "Use container_prepared signal instead.",
                     DeprecationWarning,
                 )
                 component.post_hook(container)

@@ -6,3 +6,4 @@ _signals = Namespace()
 
 pre_register = _signals.signal('pre_register')
 post_register = _signals.signal('post_register')
+container_prepared = _signals.signal('container_prepared')
