@@ -36,7 +36,6 @@ class TestComponentRegistrarBind(object):
             post_hook=post_hook,
         )
 
-
     @pytest.fixture
     def plugin_1(self, component_class, factory):
         return factory.create_plugin(
