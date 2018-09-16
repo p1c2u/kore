@@ -63,18 +63,16 @@ class Factory(dict):
         return ComponentRegistrar()
 
     def create_component(
-            self, component_factory=None, component_plugin=None,
-            component_plugin_name=None, component_plugin_class=None):
+            self, component_factory=None, plugin=None,
+            plugin_name=None, plugin_class=None,
+    ):
         if component_factory is None:
             component_factory = self.create_component_factory()
 
-        if component_plugin is None:
-            component_plugin = self.create_component_plugin(
-                component_plugin_name, component_plugin_class,
-            )
+        if plugin is None:
+            plugin = self.create_plugin(plugin_name, plugin_class)
 
-        return component_factory.create(
-            component_plugin.plugin, component_plugin.name)
+        return component_factory.create(plugin.component_class, plugin.name)
 
     def create_container_factory(
             self, plugins_provider=None, component_factory=None,

@@ -26,5 +26,5 @@ class PluginsProvider(object):
     def _get_plugins(self):
         plugins = {}
         for plugin in self.iterator:
-            plugins[plugin.name] = plugin.plugin
+            plugins[plugin.name] = plugin.component_class
         return plugins
